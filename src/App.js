@@ -17,10 +17,10 @@ function App() {
       <ThemeProvider theme={lightTheme}>
         <Switch>
           <Route exact path="/" component={Main} />
-          <Route exact path="/about" component={AboutPage} />
-          <Route exactpath="/blog" component={BlogPage} />
-          <Route exact path="/work" component={WorkPage} />
-          <Route exactpath="/skills" component={MySkillsPage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/blog" component={BlogPage} />
+          <Route path="/work" component={WorkPage} />
+          <Route path="/skills" component={MySkillsPage} />
         </Switch>
       </ThemeProvider>
     </>

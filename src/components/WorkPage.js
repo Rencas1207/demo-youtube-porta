@@ -1,67 +1,61 @@
-import React from 'react';
-import styled, { keyframes, ThemeProvider } from 'styled-components';
+import React, { useEffect, useRef } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme } from './Themes';
 
 import { LogoComponent } from '../subComponents/LogoComponent';
 import { SocialIcons } from '../subComponents/SocialIcons';
 import { PowerButton } from '../subComponents/PowerButton';
 
-import { ParticleComponent } from '../subComponents/ParticleComponent';
-
-import astronaut from '../assets/Images/spaceman.png';
+import { Work } from '../data/WorkData';
+import { Card } from './Card';
+import { YinYang } from './AllSvgs';
 
 const Box = styled.div`
   background: ${(props) => props.theme.body};
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  height: 400vh;
   position: relative;
   overflow: hidden;
 `;
 
-const float = keyframes`
-  0% {transform: translateY(-10px)}
-  50% {transform: translateY(15px) translateX(15px)}
-  100% {transform: translateY(-10px)}
-`;
-
-const Spaceman = styled.div`
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  width: 20vw;
-
-  animation: ${float} 4s ease infinite;
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-`;
-
-const Main = styled.div`
-  border: 2px solid ${(props) => props.theme.text};
-  color: ${(props) => props.theme.text};
-  padding: 2rem;
-  width: 50vw;
-  height: 60vh;
-  z-index: 3;
-  line-height: 1.5;
+const Main = styled.ul`
+  position: fixed;
+  top: 12rem;
+  left: calc(10rem + 15vw);
+  height: 40vh;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: calc(0.7rem + 1vw);
-  backdrop-filter: blur(4px);
+  color: white;
+`;
 
-  position: absolute;
-  left: calc(5rem + 5vw);
-  top: 10rem;
-
-  font-family: 'Ubuntu Mono', monospace;
-  font-style: italic;
+const Rotate = styled.span`
+  display: block;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 80px;
+  height: 80px;
+  z-index: 5;
 `;
 
 export const WorkPage = () => {
+  const ref = useRef(null);
+  const yinyang = useRef(null);
+
+  useEffect(() => {
+    let element = ref.current;
+
+    const rotate = () => {
+      element.style.transform = `translateX(${-window.pageYOffset}px)`;
+      yinyang.current.style.transform =
+        `rotate(` + -window.pageYOffset + `deg)`;
+    };
+
+    window.addEventListener('scroll', rotate);
+
+    return () => window.removeEventListener('scroll', rotate);
+  }, []);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box>
@@ -69,24 +63,14 @@ export const WorkPage = () => {
         <SocialIcons theme="dark" />
         <PowerButton />
 
-        <ParticleComponent theme="dark" />
-
-        <Spaceman>
-          <img src={astronaut} alt="spaceman" />
-        </Spaceman>
-
-        <Main>
-          I'm a front-end developer located in India. I love to create simple
-          yet beautiful websites with great user experience.
-          <br />
-          <br />
-          I'm interested in the whole frontend stack Like trying new things and
-          building great projects. I'm an independent freelancer and blogger.
-          <br />
-          <br />I love to write blogs and read books. I believe everything is an
-          Art when you put your consciousness in it. You can connect with me via
-          social links.
+        <Main ref={ref}>
+          {Work.map((d) => {
+            return <Card key={d.id} data={d} />;
+          })}
         </Main>
+        <Rotate ref={yinyang}>
+          <YinYang width={80} height={80} fill={darkTheme.text} />
+        </Rotate>
       </Box>
     </ThemeProvider>
   );

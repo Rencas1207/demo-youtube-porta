@@ -8,6 +8,7 @@ import { PowerButton } from '../subComponents/PowerButton';
 
 import { lightTheme } from './Themes';
 import { ParticleComponent } from '../subComponents/ParticleComponent';
+import { BigTitle } from '../subComponents/BigTitle';
 
 const Box = styled.div`
   background: ${(props) => props.theme.body};
@@ -130,6 +131,8 @@ export const MySkillsPage = () => {
             <p>VScode, Github, Codepen etc.</p>
           </Description>
         </Main>
+
+        <BigTitle text="SKILLS" top="80%" right="30%" />
       </Box>
     </ThemeProvider>
   );

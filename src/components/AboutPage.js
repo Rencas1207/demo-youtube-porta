@@ -9,6 +9,7 @@ import { PowerButton } from '../subComponents/PowerButton';
 import { ParticleComponent } from '../subComponents/ParticleComponent';
 
 import astronaut from '../assets/Images/spaceman.png';
+import { BigTitle } from '../subComponents/BigTitle';
 
 const Box = styled.div`
   background: ${(props) => props.theme.body};
@@ -87,6 +88,8 @@ export const AboutPage = () => {
           Art when you put your consciousness in it. You can connect with me via
           social links.
         </Main>
+
+        <BigTitle text="ABOUT" top="10%" left="5%" />
       </Box>
     </ThemeProvider>
   );
